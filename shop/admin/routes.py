@@ -11,7 +11,7 @@ def admin():
 
 @app.route('/brands')
 def brands():
-    brands = Brand.query.order_by(Brand.id.desc()).all()
+    brands = Brand.query.order_by(Brand.id.asc()).all()
     return render_template('admin/brand.html', title='brands',brands=brands)
 
 
@@ -31,7 +31,8 @@ def register():
         flash(f'welcome {form.name.data} Thanks for registering','success')
         db.session.commit()
         return redirect(url_for('login'))
-    return render_template('admin/register.html',title='Register user', form=form)
+    else:
+        return render_template('admin/register.html',title='Register user', form=form)
 
 
 @app.route('/login', methods=['GET','POST'])
